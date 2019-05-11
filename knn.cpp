@@ -64,6 +64,32 @@ public:
 	}
 };
 
+class Operacoes{
+private:
+	double minuto, temperatura, umidade, chuva;
+
+public:
+	Operacoes(double minuto, double temperatura, double umidade, double chuva){
+		this->minuto = minuto;
+		this->temperatura = temperatura;
+		this->umidade = umidade;
+		this->chuva = chuva;
+	}
+
+	double getTemp()
+	{
+		return temperatura;
+	}
+	double getUmidade()
+	{
+		return umidade;
+	}
+	double getChuva()
+	{
+		return chuva;
+	}
+};
+
 double obterDistEuclidiana(Condicao cond1, Condicao cond2)
 {
 	double soma = pow((cond1.getDia()-cond2.getDia()), 2) +
@@ -127,13 +153,15 @@ double classificarAmostra(vector<Condicao>& condicoes,
 
 int main(int argc, char *argv[])
 {
+	//Captura o tempo do sistema, com hora e data
     char dateStr [9];
     char timeStr [9];
     _strdate(dateStr);
-    _strtime( timeStr );
+    _strtime(timeStr);
     int minutoanterior = -1;
 
 
+    //Verifica o minuto atual o tranforma em um inteiro para poder fazer comparações
     char minutoatual[3];
     memcpy(minutoatual, &timeStr[3], 2);
     minutoatual[2] = '\0'; // adiciona o terminador de linha
@@ -141,109 +169,143 @@ int main(int argc, char *argv[])
 
 
     //Caso o minuto atual seja 0, é necessário verificar se o arquivo de dados está vazio ou preenchido
-    if(intminutoatual == 0){
+    //if(intminutoatual == 0){
     	//Abre o arquivo de dados para verificar se está preenchido
 		FILE *dados;
-		dados = fopen("dados.txt","a");
+		dados = fopen("dados.txt","r");
+
+		//Cria as variáveis necessárias
+		double tmed = 0, umed = 0, chuva = 0;
 
 		//Verifica se o arquivo de texto está preenchido, se estiver vazio ele só passa pelo if
 		fseek (dados, 0, SEEK_END);
 		if(ftell (dados) != 0){
 			//Se o arquivo estiver vazio, é necessário fazer as operações para encontrar a temperatura média, umidade média e se choveu ou não
 			//Após isso gravaremos os dados no arquivo de treinamento
+			//Cria um vetor para salvar os dados
+			vector<Operacoes> operacao;
 
+			//Volta o indicador de posição para o primeiro elemento
+			fseek(dados,0, SEEK_SET);
 
+			//Captura todos os dados do arquivo dados e adiciona a um vetor operações
+			while(!feof(dados)){
+				double minuto, temperatura, umidade, chuva;
+				fscanf(dados, "%lf %lf %lf %lf", &minuto, &temperatura, &umidade, &chuva);
+				operacao.push_back(Operacoes(minuto, temperatura, umidade, chuva));
+			}
 
+			//Verifica a quantidade de minutos que tem salvo
+			int n = operacao.size();
+
+			//Calcula a temperatura média
+			for(int i=0; i<n; i++){
+				tmed =tmed+operacao[i].getTemp();
+			}
+			tmed = tmed/n;
+
+			//Calcula a umidade média
+			for(int i=0; i<n; i++){
+				umed =umed+operacao[i].getUmidade();
+			}
+			umed = umed/n;
+
+			//Verifica se choveu no período, se sim, o valor final de chuva é 1
+			for(int i=0; i<n; i++){
+				printf("%lf\n", operacao[i].getChuva());
+				chuva=chuva+operacao[i].getChuva();
+			}
+			if(chuva >= 1){
+				chuva = 1;
+			}
 		}
-
-
+		//Fecha o arquivo de dados
 		fclose(dados);
-    }
+    //}
 
-    //Se o minuto atual for maior que o minuto anterior, ou seja, se mudou de minuto, faz a leitura dos sensores, grava no arquivo dados e verifica se há probabilidade de chover
-    if(intminutoatual > minutoanterior){
-		vector<Condicao> condicoes;
-		int K = 13;
+	    //Se o minuto atual for maior que o minuto anterior, ou seja, se mudou de minuto, faz a leitura dos sensores, grava no arquivo dados e verifica se há probabilidade de chover
+		if(intminutoatual > minutoanterior){
+			vector<Condicao> condicoes;
+			int K = 13;
 
-		//Iremos abrir o nosso arquivo de treinamento e de dados
-		FILE *treinamento;
-		treinamento = fopen("treinamento.txt","r");
+			//Iremos abrir o nosso arquivo de treinamento e de dados
+			FILE *treinamento;
+			treinamento = fopen("treinamento.txt","r");
 
-		//Lê os dados do arquivo treinamento e treina a IA
-		while(!feof(treinamento)){
-			int chuva;
-			double dia, mes, ano, hora, tmed, umed;
+			//Lê os dados do arquivo treinamento e treina a IA
+			while(!feof(treinamento)){
+				int chuva;
+				double dia, mes, ano, hora, tmed, umed;
 
-			fscanf(treinamento, "%lf %lf %lf %lf %lf %lf %i", &dia, &mes, &ano, &hora, &tmed, &umed, &chuva);
-			condicoes.push_back(Condicao(dia, mes, ano, hora, tmed, umed, chuva));
-		}
-		//fechar o arquivo
-		fclose(treinamento);
+				fscanf(treinamento, "%lf %lf %lf %lf %lf %lf %i", &dia, &mes, &ano, &hora, &tmed, &umed, &chuva);
+				condicoes.push_back(Condicao(dia, mes, ano, hora, tmed, umed, chuva));
+			}
+			//fechar o arquivo
+			fclose(treinamento);
 
-		/*
-		 *
-		 * LEITURA DOS SENSORES
-		 *
-		 *
-		 *
-		 * */
-
-		double temperatura, umidade, chove;
-
-		/*
-		 *
-		 *
-		 *	FIM DA LEITURA DOS SENSORES
-		 *
-		 *
-		 */
-
-		//Iremos adicionar as informações lidas pelos sensores no arquivo de dados
-		FILE *dados;
-		dados = fopen("dados.txt","a");
-
-		//Escrevendo os dados dos sensores no arquivo de dados
-		fprintf(dados, "%d	%lf	%lf	%lf\n", intminutoatual, temperatura, umidade, chove);
-
-		//Fechando o arquivo dados que estava no modo de anexação
-		fclose(dados);
-
-		//Numero de linhas dos arquivos de dados
-		//Iremos abrir o nosso arquivo de dados para realizar a leitura
-		dados = fopen("dados.txt","r");
-
-		while(!feof(dados)){
-			int chuva;
-			double dia, mes, ano, hora, tmed, umed;
-
-			fscanf(dados, "%lf %lf %lf %lf %lf %lf %i", &dia, &mes, &ano, &hora, &tmed, &umed, &chuva);
-
-			Condicao cond(dia, mes, ano, hora, tmed, umed, chuva);
-
-			double chuva_resultado = classificarAmostra(condicoes ,cond, K);
-		}
-		//fechar o arquivo
-		fclose(dados);
-		//minutoanterior recebe o valor de intminutoatual para que não entre novamente no int
-
-		/*if(chuva_resultado == 1){
+			/*
 			 *
-			 *
-			 * PROGRAMAÇÃO EM CASO DE CHUVA
+			 * LEITURA DOS SENSORES
 			 *
 			 *
 			 *
-		}else{
+			 * */
+
+			double temperatura, umidade, chove;
+
+			/*
+			 *
+			 *
+			 *	FIM DA LEITURA DOS SENSORES
+			 *
+			 *
+			 */
+
+			//Iremos adicionar as informações lidas pelos sensores no arquivo de dados
+			FILE *dados;
+			dados = fopen("dados.txt","a");
+
+			//Escrevendo os dados dos sensores no arquivo de dados
+			fprintf(dados, "%d	%lf	%lf	%lf\n", intminutoatual, temperatura, umidade, chove);
+
+			//Fechando o arquivo dados que estava no modo de anexação
+			fclose(dados);
+
+			//Numero de linhas dos arquivos de dados
+			//Iremos abrir o nosso arquivo de dados para realizar a leitura
+			dados = fopen("dados.txt","r");
+
+			while(!feof(dados)){
+				int chuva;
+				double dia, mes, ano, hora, tmed, umed;
+
+				fscanf(dados, "%lf %lf %lf %lf %lf %lf %i", &dia, &mes, &ano, &hora, &tmed, &umed, &chuva);
+
+				Condicao cond(dia, mes, ano, hora, tmed, umed, chuva);
+
+				double chuva_resultado = classificarAmostra(condicoes ,cond, K);
+			}
+			//fechar o arquivo
+			fclose(dados);
+			//minutoanterior recebe o valor de intminutoatual para que não entre novamente no int
+
+			/*if(chuva_resultado == 1){
+				 *
+				 *
+				 * PROGRAMAÇÃO EM CASO DE CHUVA
+				 *
+				 *
+				 *
+			}else{
 
 
 
 
-		}*/
+			}*/
 
 
-		minutoanterior = intminutoatual;
-    }
-
+			minutoanterior = intminutoatual;
+	    }
 	return 0;
 }
 
