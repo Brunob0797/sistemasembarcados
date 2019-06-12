@@ -169,7 +169,7 @@ int main(int argc, char *argv[])
 
 
     //Caso o minuto atual seja 0, é necessário verificar se o arquivo de dados está vazio ou preenchido
-    //if(intminutoatual == 0){
+    if(intminutoatual == 0){
     	//Abre o arquivo de dados para verificar se está preenchido
 		FILE *dados;
 		dados = fopen("dados.txt","r");
@@ -218,10 +218,84 @@ int main(int argc, char *argv[])
 			if(chuva >= 1){
 				chuva = 1;
 			}
+			//Iremos adicionar as informações calculadass no arquivo de treinamento
+			FILE *treinamento;
+			treinamento = fopen("treinamento.txt","a");
+
+			//Definindo a hora, dia, mes e ano
+			//Verifica a hora atual
+			char horaatual[3];
+			memcpy(horaatual, &timeStr[0], 2);
+			horaatual[2] = '\0'; // adiciona o terminador de linha
+			int inthoraatual = std::stoi(horaatual);
+
+			int dia_treinamento = 0, mes_treinamento = 0, ano_treinamento = 0, hora_treinamento = 0;
+
+			//A hora no treinamento deve ser a hora anterior
+			int hora_treinamento = inthoraatual - 1;
+
+			//Verifica o dia atual
+			char diaatual[3];
+			memcpy(diaatual, &dateStr[3], 2);
+			diaatual[2] = '\0'; // adiciona o terminador de linha
+			int intdiaatual = std::stoi(diaatual);
+
+			//Verifica o mes atual
+			char mesatual[3];
+			memcpy(mesatual, &dateStr[0], 2);
+			diaatual[2] = '\0'; // adiciona o terminador de linha
+			int intmesatual = std::stoi(mesatual);
+
+			//Se a hora atual for meia noite, o dado é do dia anterior
+			if(inthoraatual == 0){
+				if(intdiaatual == 1){
+					if(intmesatual == 2 || 4 || 6 || 8|| 9 || 11){
+						dia_treinamento = 31;
+					}else if(intmesatual == 3){
+						dia_treinamento = 28;
+					}
+					else{
+						dia_treinamento = 30;
+					}
+				}
+				else{
+					dia_treinamento = intdiaatual - 1;
+				}
+			}else{
+				dia_treinamento = intdiaatual;
+			}
+
+			if(intmesatual == 1 && intdiaatual == 1 && inthoraatual == 0){
+				mes_treinamento = 12;
+			}
+			else{
+				mes_treinamento = intmesatual - 1;
+			}
+
+			//Verifica o ano atual
+			char anoatual[3];
+			memcpy(anoatual, &dateStr[6], 2);
+			anoatual[2] = '\0'; // adiciona o terminador de linha
+			int intanoatual = std::stoi(anoatual) + 2000;
+
+			if(intmesatual == 1 && intdiaatual == 1 && inthoraatual == 0){
+				ano_treinamento = intanoatual - 1;
+			}else{
+				ano_treinamento = intanoatual;
+			}
+
+			//Escrevendo os dados no arquivo de treinamento
+			fprintf(treinamento, "%d	%d	%d	%d	%.2lf	%.2lf	%.0lf\n", dia_treinamento, mes_treinamento, ano_treinamento, hora_treinamento, tmed, umed, chuva);
+
+			//Fechando o arquivo treinamento que estava no modo de anexação
+			fclose(treinamento);
+
+			//Reseta o minuto anterior
+			minutoanterior = -1;
 		}
 		//Fecha o arquivo de dados
 		fclose(dados);
-    //}
+    }
 
 	    //Se o minuto atual for maior que o minuto anterior, ou seja, se mudou de minuto, faz a leitura dos sensores, grava no arquivo dados e verifica se há probabilidade de chover
 		if(intminutoatual > minutoanterior){
@@ -266,7 +340,7 @@ int main(int argc, char *argv[])
 			dados = fopen("dados.txt","a");
 
 			//Escrevendo os dados dos sensores no arquivo de dados
-			fprintf(dados, "%d	%lf	%lf	%lf\n", intminutoatual, temperatura, umidade, chove);
+			fprintf(dados, "%d	%.2lf	%.2lf	%.0lf\n", intminutoatual, temperatura, umidade, chove);
 
 			//Fechando o arquivo dados que estava no modo de anexação
 			fclose(dados);
@@ -287,7 +361,7 @@ int main(int argc, char *argv[])
 			}
 			//fechar o arquivo
 			fclose(dados);
-			//minutoanterior recebe o valor de intminutoatual para que não entre novamente no int
+
 
 			/*if(chuva_resultado == 1){
 				 *
@@ -303,29 +377,8 @@ int main(int argc, char *argv[])
 
 			}*/
 
-
+			//minutoanterior recebe o valor de intminutoatual para que não entre novamente no int
 			minutoanterior = intminutoatual;
 	    }
 	return 0;
 }
-
-
-/*char horaatual[3];
-memcpy(horaatual, &timeStr[0], 2);
-horaatual[2] = '\0'; // adiciona o terminador de linha
-int inthoraatual = std::stoi(horaatual);
-
-char diaatual[3];
-memcpy(diaatual, &dateStr[3], 2);
-diaatual[2] = '\0'; // adiciona o terminador de linha
-int intdiaatual = std::stoi(diaatual);
-
-char mesatual[3];
-memcpy(mesatual, &dateStr[0], 2);
-diaatual[2] = '\0'; // adiciona o terminador de linha
-int intmesatual = std::stoi(mesatual);
-
-char anoatual[3];
-memcpy(anoatual, &dateStr[6], 2);
-anoatual[2] = '\0'; // adiciona o terminador de linha
-int intanoatual = std::stoi(anoatual) + 2000;*/
