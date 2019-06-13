@@ -1,77 +1,77 @@
 # Smart Green Tech Irrigation
 
-Este projeto busca utilizar um algorÌtmo KNN para verificar a necessidade de irrigar uma plantaÁ„o.
+Este projeto busca utilizar um algor√≠tmo KNN para verificar a necessidade de irrigar uma planta√ß√£o.
 
 ### Requisitos
 
-Este software foi desenvolvido para o funcionamento em uma BeagleBone Black, todas as bibliotecas necess·rias est„o incluidas no mesmo, alÈm disso, s„o necess·rios os seguintes sensores e componentes:
+Este software foi desenvolvido para o funcionamento em uma BeagleBone Black, todas as bibliotecas necess√°rias est√£o incluidas no mesmo, al√©m disso, s√£o necess√°rios os seguintes sensores e componentes:
 
 * 1 BeagleBone Black
-* 1 Sensor de temperatura e ˙midade DHT22
-* 1 Sensor de ˙midade do solo higrÙmetro
+* 1 Sensor de temperatura e √∫midade DHT22
+* 1 Sensor de √∫midade do solo higr√¥metro
 * 1 Display OLED 0.96" I2C
-* 1 MÛdulo relÈ
-* 1 V·lvula SolenÛide de Entrada de ¡gua
+* 1 M√≥dulo rel√©
+* 1 V√°lvula Solen√≥ide de Entrada de √Ågua
 * 1 resistor de 4700 ohms
 
-### InstalaÁ„o
+### Instala√ß√£o
 
-Aqui temos um passo a passo de como compilar a aplicaÁ„o para a sua BeagleBone Black:
+Aqui temos um passo a passo de como compilar a aplica√ß√£o para a sua BeagleBone Black:
 
-Inicialmente È necess·rio entrar na pasta raiz da aplicaÁ„o compilar a biblioteca BlackLib, para isso basta rodar o seguinte comando no terminal:
+Inicialmente √© necess√°rio entrar na pasta raiz da aplica√ß√£o compilar a biblioteca BlackLib, para isso basta rodar o seguinte comando no terminal:
 
 ```
 g++ -c v2_0/BlackCore.cpp v2_0/BlackGPIO.cpp
 ```
 
-Depois disso È necess·rio compilar o restanto de cÛdigo:
+Depois disso √© necess√°rio compilar o restanto de c√≥digo:
 
 ```
 g++ bbb_dht_read.c bbb_mmio.c common_dht_read.c I2C.c SSD1306_OLED.c example_app.c v2_0/BlackGPIO.o v2_0/BlackCore.o codigo.cpp -o app
 ```
 ### Bibliotecas 3rd party
 
-Algumas bibliotemas externas foram modificadas para o funcionamento do projeto, porÈm os repositÛrios originais est„o contidos nos seguintes git's:
+Algumas bibliotecas externas foram modificadas para o funcionamento do projeto, por√©m os reposit√≥rios originais est√£o contidos nos seguintes git's:
 
 - [BlackLib](https://github.com/yigityuce/BlackLib)
 - [Sensor DHT22](https://github.com/adafruit/Adafruit_Python_DHT)
 - [Display OLED](https://github.com/deeplyembeddedWP/SSD1306-OLED-display-driver-for-BeagleBone)
 
 
-## Rodando a aplicaÁ„o
+## Rodando a aplica√ß√£o
 
-Para iniciar a aplicaÁ„o basta executar o app, para isso utilize o comando:
+Para iniciar a aplica√ß√£o basta executar o app, para isso utilize o comando:
 
 ```
 ./app
 ```
 
 
-### InstalaÁ„o
+### Instala√ß√£o
 
-Para o funcionamento dos sensores, seguindo a aplicaÁ„o, eles devem ser conectados nas seguintes portas:
+Para o funcionamento dos sensores, seguindo a aplica√ß√£o, eles devem ser conectados nas seguintes portas:
 
 * Sensor DHT22 - Porta P8_11
-* Sensor de ˙midade do solo higrÙmetro - Porta P9_39
+* Sensor de √∫midade do solo higr√¥metro - Porta P9_39
 * Display OLED - SCL - Porta P9_19
 * Display OLED - SDA - Porta P9_20
-* MÛdulo relÈ - Porta GPIO_66
+* M√≥dulo rel√© - Porta GPIO_66
 
-## VÌdeo explicativo
+## V√≠deo explicativo
 
-Para entender o funcionamento do projeto foi feito um vÌdeo explicativo:
+Para entender o funcionamento do projeto foi feito um v√≠deo explicativo:
 
 * [Youtube](https://youtu.be/NgO0qdY4kBM)
 
 
 ## Sistema Operacional
 
-Na BeagleBone Black foi utilizado o sistema operacional Debian 9.5 2018-10-07, disponÌvel no site do fabricante
+Na BeagleBone Black foi utilizado o sistema operacional Debian 9.5 2018-10-07, dispon√≠vel no site do fabricante
 
 ## Autores
 
 * **Bruno Barcarolo** - [Git](https://github.com/Brunob0797)
 * **Carlos Eduardo** - [Git](https://github.com/Ziiroo)
 * **Ighor Lameira** - [Git](https://github.com/ighorgl)
-* **Jo„o Vitor Zago** - [Git](https://github.com/jvzago)
+* **Jo√£o Vitor Zago** - [Git](https://github.com/jvzago)
 
