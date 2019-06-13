@@ -7,8 +7,8 @@ Este projeto busca utilizar um algorítmo KNN para verificar a necessidade de ir
 Este software foi desenvolvido para o funcionamento em uma BeagleBone Black, todas as bibliotecas necessárias estão incluidas no mesmo, além disso, são necessários os seguintes sensores e componentes:
 
 * 1 BeagleBone Black
-* 1 Sensor de temperatura e úmidade DHT22
-* 1 Sensor de úmidade do solo higrômetro
+* 1 Sensor de temperatura e umidade DHT22
+* 1 Sensor de umidade do solo higrômetro
 * 1 Display OLED 0.96" I2C
 * 1 Módulo relé
 * 1 Válvula Solenóide de Entrada de Água
@@ -52,7 +52,7 @@ Para iniciar a aplicação basta executar o app, para isso utilize o comando:
 Para o funcionamento dos sensores, seguindo a aplicação, eles devem ser conectados nas seguintes portas:
 
 * Sensor DHT22 - Porta P8_11
-* Sensor de úmidade do solo higrômetro - Porta P9_39
+* Sensor de umidade do solo higrômetro - Porta P9_39
 * Display OLED - SCL - Porta P9_19
 * Display OLED - SDA - Porta P9_20
 * Módulo relé - Porta GPIO_66
