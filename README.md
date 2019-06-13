@@ -18,7 +18,7 @@ Este software foi desenvolvido para o funcionamento em uma BeagleBone Black, tod
 
 Aqui temos um passo a passo de como compilar a aplicação para a sua BeagleBone Black:
 
-- Inicialmente é necessário entrar na pasta raiz da aplicação compilar a biblioteca BlackLib, para isso basta rodar o seguinte comando no terminal:
+Inicialmente é necessário entrar na pasta raiz da aplicação compilar a biblioteca BlackLib, para isso basta rodar o seguinte comando no terminal:
 
 ```
 g++ -c v2_0/BlackCore.cpp v2_0/BlackGPIO.cpp
@@ -29,6 +29,14 @@ Depois disso é necessário compilar o restanto de código:
 ```
 g++ bbb_dht_read.c bbb_mmio.c common_dht_read.c I2C.c SSD1306_OLED.c example_app.c v2_0/BlackGPIO.o v2_0/BlackCore.o codigo.cpp -o app
 ```
+### Bibliotecas 3rd party
+
+Algumas bibliotemas externas foram modificadas para o funcionamento do projeto, porém os repositórios originais estão contidos nos seguintes git's:
+
+- [BlackLib](https://github.com/yigityuce/BlackLib)
+- [Sensor DHT22](https://github.com/adafruit/Adafruit_Python_DHT)
+- [Display OLED](https://github.com/deeplyembeddedWP/SSD1306-OLED-display-driver-for-BeagleBone)
+
 
 ## Rodando a aplicação
 
