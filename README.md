@@ -22,7 +22,7 @@ Aqui temos um passo a passo de como compilar a aplicação para a sua BeagleBone B
 
 ```
 g++ -c v2_0/BlackCore.cpp v2_0/BlackGPIO.cpp
-```
+
 
 Depois disso é necessário compilar o restanto de código:
 
@@ -35,7 +35,7 @@ Para iniciar a aplicação basta executar o app, para isso utilize o comando:
 
 ```
 ./app
-```
+
 
 ### Instalação
 
