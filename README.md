@@ -22,12 +22,13 @@ Aqui temos um passo a passo de como compilar a aplicação para a sua BeagleBone B
 
 ```
 g++ -c v2_0/BlackCore.cpp v2_0/BlackGPIO.cpp
-
+```
 
 Depois disso é necessário compilar o restanto de código:
 
 ```
 g++ bbb_dht_read.c bbb_mmio.c common_dht_read.c I2C.c SSD1306_OLED.c example_app.c v2_0/BlackGPIO.o v2_0/BlackCore.o codigo.cpp -o app
+```
 
 ## Rodando a aplicação
 
