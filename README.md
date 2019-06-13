@@ -36,6 +36,7 @@ Para iniciar a aplicação basta executar o app, para isso utilize o comando:
 
 ```
 ./app
+```
 
 
 ### Instalação
