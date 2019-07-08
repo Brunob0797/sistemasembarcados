@@ -14,6 +14,10 @@ Este software foi desenvolvido para o funcionamento em uma BeagleBone Black, tod
 * 1 Válvula Solenóide de Entrada de Água
 * 1 resistor de 4700 ohms
 
+### Arquitetura do Projeto
+
+![Arquitetura](Brunob0797.github.com/sistemasembarcados/Arquitetura%20do%20Projeto.jpeg)
+
 ### Instalação
 
 Aqui temos um passo a passo de como compilar a aplicação para a sua BeagleBone Black:
