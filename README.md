@@ -2,6 +2,10 @@
 
 Este projeto busca utilizar um algorítmo KNN para verificar a necessidade de irrigar uma plantação.
 
+# Motivação
+
+
+
 ### Requisitos
 
 Este software foi desenvolvido para o funcionamento em uma BeagleBone Black, todas as bibliotecas necessárias estão incluidas no mesmo, além disso, são necessários os seguintes sensores e componentes:
@@ -15,6 +19,8 @@ Este software foi desenvolvido para o funcionamento em uma BeagleBone Black, tod
 * 1 resistor de 4700 ohms
 
 ### Arquitetura do Projeto
+
+O projeto, possui um sensor DHT-22, um sensor de umidade do solo, um display OLED, um móduloo relé e uma valvula solenóide de água, assim sua arquitetura é a seguinte:
 
 ![Arquitetura](Arquitetura%20do%20Projeto.jpeg)
 
