@@ -16,7 +16,7 @@ Este software foi desenvolvido para o funcionamento em uma BeagleBone Black, tod
 
 ### Arquitetura do Projeto
 
-![Arquitetura](Brunob0797.github.com/sistemasembarcados/Arquitetura%20do%20Projeto.jpeg)
+![Arquitetura](Arquitetura%20do%20Projeto.jpeg)
 
 ### Instalação
 
