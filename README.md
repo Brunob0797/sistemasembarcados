@@ -79,7 +79,7 @@ Para o funcionamento dos sensores, seguindo a aplicação, eles devem ser conect
 
 Para entender o funcionamento do projeto foi feito um vídeo explicativo:
 
-* [Youtube](https://youtu.be/NgO0qdY4kBM)
+* [Youtube](https://youtu.be/TG-5bGfCSd0)
 
 
 ## Sistema Operacional
