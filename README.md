@@ -2,9 +2,10 @@
 
 Este projeto busca utilizar um algorítmo KNN para verificar a necessidade de irrigar uma plantação.
 
-### Motivação
+### Motivação e ambientação
 
-
+No Brasil, a irrigação é responsável por cerca de 70% do uso de água potável, pensando nisso desenvolvemos um sistema para otimizar a irrigação em uma determinada área.
+Seu funcionamento consiste em utilizar dados históricos de uma estação meteorológica próxima à plantação e dados recentes lidos pelo sensor de temperatura e umidade, DHT-22, com o objetivo de prever quando irá chover. O sensor de umidade de solo verifica se é necessário que ocorra ou não a irrigação, trabalhando assim dentro de uma faixa de valores, caso a umidade do solo esteja na faixa aceitável, o sistema de irrigação será ativado se a predição de chuva for negativa.
 
 ### Requisitos
 
