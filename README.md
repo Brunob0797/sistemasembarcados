@@ -32,6 +32,9 @@ O projeto, possui um sensor DHT-22, um sensor de umidade do solo, um display OLE
 
 ![Arquitetura](Arquitetura%20do%20Projeto.jpeg)
 
+### Esquemático Eletrônico
+![Esquemático](Eletronica.png)
+
 ### Instalação
 
 Aqui temos um passo a passo de como compilar a aplicação para a sua BeagleBone Black:
